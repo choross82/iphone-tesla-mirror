@@ -1,0 +1,7 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {normalizeCode, validRequest, authorizedCall, CaptureSession} from './core.mjs';
+test('code rejects malformed input and normalizes separators',()=>{ assert.equal(normalizeCode('abcd-2345'),'ABCD2345'); assert.equal(normalizeCode('A<CD2345'),''); assert.equal(normalizeCode('AAAA'),''); });
+test('pair request is bounded and validates protocol and challenge',()=>{ const r={protocol:'ym1',nonce:'a'.repeat(32),challenge:'123456'}; assert.equal(validRequest(r),true); assert.equal(validRequest({...r,nonce:'x'}),false); assert.equal(validRequest({...r,challenge:'12<script>'}),false); assert.equal(validRequest({...r,protocol:'wrong'}),false); });
+test('incoming media requires matching expected peer and nonce',()=>{ const r={peer:'ym-ABCD2345',nonce:'a'.repeat(32),challenge:'123456'}; const meta={protocol:'ym1',nonce:r.nonce,challenge:r.challenge}; assert.equal(authorizedCall(r,r.peer,meta,true),true); assert.equal(authorizedCall(r,'intruder',meta,true),false); assert.equal(authorizedCall(r,r.peer,{...meta,nonce:'b'.repeat(32)},true),false); assert.equal(authorizedCall(r,r.peer,meta,false),false); });
+test('late capture is stopped after cancellation or a newer session',()=>{const s=new CaptureSession();const a=s.begin();s.end();let stopped=0;const stream={getTracks:()=>[{stop:()=>stopped++}]};assert.equal(s.accept(a,stream),false);assert.equal(stopped,1);const b=s.begin();assert.equal(s.accept(b,stream),true);s.end();assert.equal(stopped,2);});

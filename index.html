@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101412"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; connect-src 'self' https://0.peerjs.com wss://0.peerjs.com; media-src 'self' blob:; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>MY Mirror · iPhone → Model Y</title>
+<link rel="stylesheet" href="./style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js" crossorigin="anonymous"></script>
+<script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<header><a class="brand" href="./"><span class="brand-mark">M<span>Y</span></span> MIRROR</a><span class="edition">PERSONAL / WEB · 0.3</span></header>
+<main>
+<section class="intro"><div class="eyebrow"><span class="dot"></span> IPHONE → MODEL Y</div><h1>내 화면을,<br><span>차 안으로.</span></h1><p>아이폰은 화면을 보내고, 테슬라 브라우저는 받습니다.<br>맥 실행 없이 · 차량 앱 설치 없이</p><div class="pilot">기기 확인용 베타 <span>아이폰 전체 화면·앱 전환은 실기기 확인이 필요합니다.</span></div></section>
+<section class="workspace" aria-label="화면 공유">
+<div class="roles" role="group" aria-label="기기 선택"><button id="phone-role" class="selected" aria-pressed="true">01 <span>아이폰에서 보내기</span></button><button id="car-role" aria-pressed="false">02 <span>테슬라에서 받기</span></button></div>
+<section id="phone-panel"><div class="panel-heading"><h2>아이폰 화면 공유</h2><span class="tag">SAFARI</span></div><p class="sub">아이폰 Safari에서 이 주소를 직접 여세요.</p>
+<div id="support" class="support" role="status">화면 공유 기능을 확인하고 있습니다.</div>
+<ol class="steps"><li><b>화면 공유 시작</b>을 누르고, 시스템 선택창에서 <b>전체 화면</b>을 선택하세요.</li><li>테슬라에서 같은 주소를 열고 아래 연결 코드를 입력하세요.</li><li>두 화면의 확인 숫자가 같으면 이 아이폰에서 허용하세요.</li></ol>
+<button id="start" class="primary">화면 공유 시작 <span>↗</span></button>
+<div id="pairing" hidden><p class="label">테슬라에 입력할 연결 코드</p><output id="code" class="code"></output><p class="fine">2분 동안 연결 가능 · 새로 시작하면 코드가 바뀝니다.</p></div>
+<div id="approval" class="approval" hidden><p>테슬라의 확인 숫자와 같은가요?</p><strong id="phone-challenge" class="challenge"></strong><div class="actions"><button id="approve" class="primary">이 차량에 공유 허용</button><button id="reject" class="secondary">거절</button></div></div>
+<p id="phone-status" class="status" role="status" aria-live="polite">공유 시작 전입니다.</p><button id="phone-stop" class="secondary wide" hidden>화면 공유 끝내기</button>
+<p id="capture-info" class="fine"></p></section>
+<section id="car-panel" hidden><div class="panel-heading"><h2>아이폰 화면 받기</h2><span class="tag">TESLA BROWSER</span></div><p class="sub">주차 상태에서 연결하세요. 먼저 아이폰에서 화면 공유를 시작하세요.</p>
+<form id="join"><label class="label" for="car-code">아이폰에 표시된 연결 코드</label><div class="join-row"><input id="car-code" placeholder="ABCD 2345" maxlength="12" autocapitalize="characters" autocomplete="off" spellcheck="false" required><button class="primary" id="connect">연결</button></div></form>
+<div id="car-confirm" hidden><p class="label">아이폰에서 같은 숫자를 확인하고 허용하세요.</p><strong id="car-challenge" class="challenge"></strong></div>
+<div id="screen-wrap" class="screen-wrap" hidden><video id="screen" autoplay muted playsinline></video><div class="video-actions"><button id="play" class="secondary">화면 재생</button><button id="sound" class="secondary">소리 켜기</button><button id="fullscreen" class="secondary">전체 화면</button></div></div>
+<p id="car-status" class="status" role="status" aria-live="polite">연결 코드를 기다리고 있습니다.</p><p id="audio-info" class="fine">소리는 아이폰과 차량의 Bluetooth 연결을 권장합니다. 브라우저가 오디오 트랙을 보내는 경우에만 웹에서 재생할 수 있습니다.</p><button id="car-stop" class="secondary wide" hidden>연결 끝내기</button></section>
+</section>
+<section class="notes"><div><span class="note-number">01 / CONNECTION</span><h3>같은 네트워크로 시작</h3><p>테슬라를 아이폰 개인용 핫스팟에 연결해 먼저 테스트하세요. 네트워크 환경에 따라 직접 연결이 막힐 수 있습니다.</p></div><div><span class="note-number">02 / APP SCREEN</span><h3>지도와 영상은 기기에서 확인</h3><p>연결 후 네이버 지도와 YouTube 앱으로 전환해 확인하세요. 화면이 멈추면 Safari의 백그라운드 제한일 수 있습니다. 보호된 영상은 검은 화면이 될 수 있습니다.</p></div><div><span class="note-number">03 / PRIVACY</span><h3>내가 허용한 한 화면만</h3><p>차량의 연결 요청을 아이폰에서 승인한 뒤 전송합니다. 영상은 WebRTC로 암호화되어 전달되며 이 웹앱은 저장하지 않습니다. 알림도 화면에 보일 수 있습니다.</p></div></section>
+<details><summary>연결이 안 되거나 소리가 안 들릴 때</summary><div class="help"><p>① 아이폰 Safari의 일반 탭에서 여세요. 다른 앱 안의 브라우저나 홈 화면 웹앱은 피하세요.</p><p>② 전체 화면 선택창이 없거나 앱 전환 후 멈추면, 이 웹 방식으로 해당 기기의 전체 화면 공유를 보장할 수 없습니다. Safari로 돌아와 상태를 확인하세요.</p><p>③ 무료 연결 서비스는 연결 정보를 중계합니다. 미디어 중계(TURN) 서버가 없어 일부 통신망에서는 연결되지 않습니다. 별도 결제는 하지 않습니다.</p><p>④ 오디오가 전달되지 않으면 테슬라의 Bluetooth 오디오를 선택하세요. 브라우저 음성과 동시에 켜면 중복 재생될 수 있습니다.</p><button id="diagnose" class="secondary">무료 연결 서비스 점검</button><p id="diagnostic" class="fine" role="status"></p></div></details>
+</main><footer><span>MY MIRROR</span><p>개인 테스트용 · 웹 주소만 사용 · 서버에 화면 저장 안 함</p><a href="https://github.com/choross82/iphone-tesla-mirror" target="_blank" rel="noopener noreferrer">소스 보기 ↗</a></footer>
+</body></html>
